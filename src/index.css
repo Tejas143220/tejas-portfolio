@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyan-300: var(--accent-light);
+  --color-cyan-400: var(--accent-light);
+  --color-cyan-500: var(--accent-primary);
+  --color-cyan-600: var(--accent-primary);
+}
+
+:root {
+  --accent-primary: #ffffff;
+  --accent-light: #f4f4f5;
+  --accent-glow: rgba(255, 255, 255, 0.15);
+  --accent-border: rgba(255, 255, 255, 0.25);
+  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #e4e4e7 50%, #a1a1aa 100%);
+}
+
+[data-theme="charcoal"] {
+  --accent-primary: #e4e4e7;
+  --accent-light: #ffffff;
+  --accent-glow: rgba(228, 228, 231, 0.15);
+  --accent-border: rgba(228, 228, 231, 0.25);
+  --accent-gradient: linear-gradient(135deg, #f4f4f5 0%, #d4d4d8 50%, #71717a 100%);
+}
+
+[data-theme="obsidian-ice"] {
+  --accent-primary: #38bdf8;
+  --accent-light: #7dd3fc;
+  --accent-glow: rgba(56, 189, 248, 0.22);
+  --accent-border: rgba(56, 189, 248, 0.35);
+  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #0284c7 100%);
+}
+
+[data-theme="emerald-mono"] {
+  --accent-primary: #34d399;
+  --accent-light: #6ee7b7;
+  --accent-glow: rgba(52, 211, 153, 0.22);
+  --accent-border: rgba(52, 211, 153, 0.35);
+  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #34d399 50%, #059669 100%);
+}
+
+@layer base {
+  html, body {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    max-width: 100vw;
+    background-color: #000000;
+    color: #f4f4f5;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #18181b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Pitch-Black Editorial Glassmorphism & Utility Classes */
+.glass-panel {
+  background: rgba(9, 9, 11, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9);
+}
+
+.glass-card {
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 36px -12px rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px);
+}
+
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.theme-accent-bg {
+  background-color: var(--accent-primary);
+}
+
+.theme-accent-text {
+  color: var(--accent-light);
+}
+
+.theme-accent-border {
+  border-color: var(--accent-border);
+}
+
+/* Orbital Rotation Keyframes */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-orbit {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: reverse-spin 25s linear infinite;
+}
+
+.animate-orbit:hover,
+.animate-orbit-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Futuristic Shimmer Sweep & Reticle Animations */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+.cyber-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(25deg);
+}
+
+.cyber-shimmer:hover::after {
+  animation: shimmer-sweep 1.2s ease-in-out;
+}
+
+/* Corner Reticle Indicators */
+.hud-reticle-card {
+  position: relative;
+}
+
+.hud-reticle-card::before,
+.hud-reticle-card::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.4;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+  pointer-events-none: none;
+}
+
+.hud-reticle-card::before {
+  top: 8px;
+  left: 8px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-reticle-card::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+.hud-reticle-card:hover::before,
+.hud-reticle-card:hover::after {
+  opacity: 1;
+}
