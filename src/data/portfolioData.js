@@ -4,14 +4,14 @@ export const personalData = {
   brandLogo: "TT",
   title: "Python & Full Stack Developer | Computer Science Postgraduate",
   subtitle: "Postgraduate student skilled in FastAPI, React.js, Next.js, PostgreSQL, Python, and ERP systems.",
-  email: "tthakare67@gmail.com",
+  email: "thakaretejas406@gmail.com",
   phone: "+91 7058638277",
   location: "Nashik, Maharashtra, India",
   github: "https://github.com/Tejas143220",
   linkedin: "https://www.linkedin.com/in/tejas-thakare-440799251/",
   twitter: "https://twitter.com/tejashakare",
   resumeUrl: "/TEJAS_THAKARE_R.pdf",
-  web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY", // Get free key at https://web3forms.com to receive form submissions in tthakare67@gmail.com
+  web3formsAccessKey: "3b11e719-e977-49f5-95da-f823631e0996",
   
   aboutNarrative: [
     "I am a motivated Computer Science postgraduate with hands-on experience in Python development, ERP systems, full-stack web development, and database management.",
@@ -88,7 +88,7 @@ Database & ERP : PostgreSQL, MySQL, Odoo 16 ERP, Git & GitHub`,
 2. Nashik's Best Misal Portal     [Live: https://nashik-top-misal.vercel.app]    -> Run "open 2"
 3. Fly Ash Bricks ERP System     [FastAPI + Next.js + PostgreSQL]               -> Run "open 3"
 4. E-Learning Platform           [PHP + MySQL Full Stack]                      -> Run "open 4"`,
-  contact: "Email: tthakare67@gmail.com\nPhone: +91 7058638277\nLocation: Nashik, Maharashtra, India\nGitHub: github.com/Tejas143220\nLinkedIn: linkedin.com/in/tejas-thakare-440799251/",
+  contact: "Email: thakaretejas406@gmail.com\nPhone: +91 7058638277\nLocation: Nashik, Maharashtra, India\nGitHub: github.com/Tejas143220\nLinkedIn: linkedin.com/in/tejas-thakare-440799251/",
   resume: "Opening PDF Resume Viewer... (Downloaded: TEJAS_THAKARE_R.pdf)"
 };
 
