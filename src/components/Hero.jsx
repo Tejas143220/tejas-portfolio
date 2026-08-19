@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowRight, FaCode, FaServer, FaDatabase, FaTerminal, FaFilePdf, FaProjectDiagram, FaNetworkWired } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import {
+  FaGithub, FaLinkedin, FaEnvelope, FaArrowRight,
+  FaFilePdf
+} from 'react-icons/fa';
 import { personalData } from '../data/portfolioData';
 import DeveloperIDCard from './DeveloperIDCard';
-import { soundFx } from '../utils/SoundEffects';
 
 const roles = [
   "Python & Full Stack Developer",
@@ -12,7 +14,7 @@ const roles = [
   "Postgraduate Computer Scientist"
 ];
 
-export default function Hero({ onOpenResume, onOpenTerminal, onOpenSandbox, onOpenApiWorkbench }) {
+export default function Hero({ onOpenResume }) {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -39,144 +41,79 @@ export default function Hero({ onOpenResume, onOpenTerminal, onOpenSandbox, onOp
     return () => clearTimeout(timer);
   }, [displayedText, isDeleting, roleIndex]);
 
+  const scrollToProjects = (e) => {
+    e.preventDefault();
+    const elem = document.getElementById('projects');
+    if (elem) {
+      const top = elem.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-black">
-      {/* Refined Pitch-Black Ambient Radial Lights */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-white/4 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-zinc-400/4 rounded-full blur-[140px] pointer-events-none" />
+    <section id="home" className="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden bg-black">
+      {/* Refined Ambient Background Lights */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[650px] h-[350px] sm:h-[650px] bg-sky-500/10 rounded-full blur-[120px] sm:blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 right-4 w-[250px] sm:w-[450px] h-[250px] sm:h-[450px] bg-indigo-500/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        
-        {/* ================= EDITORIAL AWWWARDS MOBILE HERO VIEW (Visible on Mobile) ================= */}
-        <div className="block md:hidden text-left space-y-6 pt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           
-          {/* Top Metadata Line */}
-          <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-slate-400 uppercase border-b border-slate-800/80 pb-3">
-            <span>PYTHON & WEB DEVELOPER</span>
-            <span>BASED IN NASHIK, INDIA</span>
-          </div>
-
-          {/* Justified Narrative Snippet */}
-          <p className="text-xs text-slate-300 uppercase tracking-wider leading-relaxed text-justify border-b border-slate-800/80 pb-5 font-mono">
-            MOTIVATED COMPUTER SCIENCE POSTGRADUATE SKILLED IN PYTHON DEVELOPMENT, ENTERPRISE ERP SYSTEMS (ODOO 16 & FLY ASH BRICKS ERP), FASTAPI REST APIs, REACT.JS, NEXT.JS, AND POSTGRESQL DATABASE MANAGEMENT.
-          </p>
-
-          {/* Giant Editorial Title */}
-          <div className="py-2">
-            <h1 className="text-4xl xs:text-5xl font-black tracking-tighter text-slate-100 uppercase font-heading leading-tight">
-              TEJAS THAKARE <span className="text-gradient font-black">. PYTHON & WEB DEVELOPER .</span>
-            </h1>
-          </div>
-
-          {/* Editorial Social Text Bar */}
-          <div className="flex items-center justify-between text-xs font-mono text-slate-300 font-semibold border-t border-b border-slate-800/80 py-3">
-            <a href={personalData.github} target="_blank" rel="noreferrer" className="hover:text-sky-400 transition-colors">GitHub</a>
-            <a href={personalData.linkedin} target="_blank" rel="noreferrer" className="hover:text-sky-400 transition-colors">LinkedIn</a>
-            <a href={`mailto:${personalData.email}`} className="hover:text-sky-400 transition-colors">Email</a>
-            <button onClick={onOpenResume} className="hover:text-sky-400 transition-colors cursor-pointer">Resume</button>
-          </div>
-
-          {/* Mobile Action Buttons Bar */}
-          <div className="pt-2">
-            <button
-              onClick={() => onOpenResume && onOpenResume()}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-black text-xs font-mono flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-all cursor-pointer"
-            >
-              <FaFilePdf className="w-4 h-4" />
-              <span>Preview Resume</span>
-            </button>
-          </div>
-
-          {/* Embedded Developer Pass Card Frame */}
-          <div className="pt-4">
-            <div className="glass-panel p-2 sm:p-4 rounded-3xl border border-slate-800/80 shadow-2xl bg-slate-950/80 backdrop-blur-xl">
-              <DeveloperIDCard />
-            </div>
-          </div>
-
-        </div>
-
-        {/* ================= DESKTOP HERO VIEW (Visible on MD screens and above) ================= */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Text Content Column */}
+          {/* Main Hero Text Column */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="lg:col-span-7 flex flex-col items-start text-left"
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left"
           >
-            {/* Executive Status Chip */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-sky-400 text-[11px] sm:text-xs font-semibold mb-6 backdrop-blur-md max-w-full shadow-lg shadow-sky-950/20">
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
-              </span>
-              <span className="truncate text-slate-200">M.Sc. CS Postgraduate <span className="text-slate-500">|</span> Open for Python & Web Developer Roles</span>
-            </div>
-
-            {/* Main Greeting */}
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-3 leading-[1.12]">
+            {/* Main Title */}
+            <h1 className="text-3xl xs:text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-3 leading-[1.15]">
               Hi, I am{' '}
-              <span className="text-gradient">
+              <span className="text-gradient block sm:inline">
                 Tejas Thakare
               </span>
             </h1>
 
-            {/* Subtitle / Animated Typewriter Role */}
-            <h2 className="text-base sm:text-2xl font-semibold text-sky-400 mb-6 h-9 sm:h-10 flex items-center font-mono">
+            {/* Typewriter Subtitle */}
+            <h2 className="text-sm xs:text-base sm:text-2xl font-semibold text-sky-400 mb-5 h-8 sm:h-10 flex items-center font-mono justify-center lg:justify-start">
               <span>{displayedText}</span>
-              <span className="w-1.5 sm:w-2 h-5 sm:h-6 bg-sky-400 ml-1 animate-pulse" />
+              <span className="w-1.5 sm:w-2 h-4 sm:h-6 bg-sky-400 ml-1 animate-pulse" />
             </h2>
 
-            {/* Bio Summary */}
-            <p className="text-sm sm:text-lg text-slate-400 mb-8 max-w-2xl leading-relaxed">
-              Motivated Computer Science postgraduate with hands-on experience in Python development, enterprise ERP systems (Odoo 16 & Fly Ash Bricks ERP), FastAPI REST backend services, React.js, Next.js, and PostgreSQL database management.
+            {/* Narrative Summary */}
+            <p className="text-xs sm:text-base text-slate-300 mb-7 max-w-xl sm:max-w-2xl leading-relaxed text-center lg:text-left">
+              Motivated Computer Science postgraduate with hands-on expertise in Python development, enterprise ERP systems (Odoo 16 & Fly Ash Bricks ERP), FastAPI REST services, React.js, Next.js, and PostgreSQL database management.
             </p>
 
-            {/* Call To Action (CTA) Buttons */}
-            <div className="flex flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-8 w-full sm:w-auto">
+            {/* Action CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto mb-8">
               <a
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 shadow-xl shadow-sky-500/20 hover:shadow-sky-500/30 transition-all text-sm sm:text-base text-center cursor-pointer"
+                onClick={scrollToProjects}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 shadow-lg shadow-cyan-500/25 transition-all text-sm text-center cursor-pointer active:scale-95"
               >
-                <span>View Enterprise Work</span>
-                <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>Explore Work</span>
+                <FaArrowRight className="w-3.5 h-3.5" />
               </a>
 
-
-
               <button
-                onClick={() => {
-                  onOpenResume();
-                }}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-3.5 rounded-xl font-semibold text-slate-200 glass-card hover:bg-slate-800/80 hover:text-white border border-slate-800 hover:border-sky-500/40 transition-all text-xs sm:text-sm text-center cursor-pointer"
+                onClick={onOpenResume}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-slate-200 glass-card hover:bg-slate-800/80 hover:text-white border border-slate-800 hover:border-sky-500/40 transition-all text-sm text-center cursor-pointer active:scale-95"
               >
                 <FaFilePdf className="w-4 h-4 text-sky-400" />
                 <span>Preview Resume</span>
               </button>
-
-              <button
-                onClick={() => {
-                  onOpenSandbox && onOpenSandbox();
-                }}
-                className="px-4 py-3 sm:py-3.5 rounded-xl font-medium text-slate-400 hover:text-sky-300 bg-slate-900/60 border border-slate-800/80 hover:border-slate-700 transition-all flex items-center justify-center gap-2 text-xs text-center cursor-pointer"
-                title="Launch Anti-Gravity Tech Sandbox"
-              >
-                <FaProjectDiagram />
-                <span>Physics Sandbox</span>
-              </button>
             </div>
 
-            {/* Social Icons Bar */}
-            <div className="flex items-center gap-4 sm:gap-6 pt-6 border-t border-slate-800/80 w-full">
+            {/* Social Links Bar */}
+            <div className="flex items-center gap-4 pt-5 border-t border-slate-800/80 w-full justify-center lg:justify-start">
               <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold font-mono">Connect:</span>
               <div className="flex items-center gap-3">
                 <a
                   href={personalData.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
+                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
                   aria-label="GitHub Profile"
                 >
                   <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -185,14 +122,14 @@ export default function Hero({ onOpenResume, onOpenTerminal, onOpenSandbox, onOp
                   href={personalData.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
+                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
                   aria-label="LinkedIn Profile"
                 >
                   <FaLinkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
                 <a
                   href={`mailto:${personalData.email}`}
-                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
+                  className="p-2.5 text-slate-400 hover:text-sky-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all hover:scale-105"
                   aria-label="Email Me"
                 >
                   <FaEnvelope className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -201,12 +138,12 @@ export default function Hero({ onOpenResume, onOpenTerminal, onOpenSandbox, onOp
             </div>
           </motion.div>
 
-          {/* Visual Column: Holographic 3D Developer ID Card Flip */}
+          {/* Visual Column: Holographic Developer Pass Card (Visible only on Desktop) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-            className="lg:col-span-5 flex justify-center items-center relative"
+            className="hidden lg:flex lg:col-span-5 justify-center items-center relative mt-4 lg:mt-0"
           >
             <DeveloperIDCard />
           </motion.div>
@@ -216,5 +153,3 @@ export default function Hero({ onOpenResume, onOpenTerminal, onOpenSandbox, onOp
     </section>
   );
 }
-
-

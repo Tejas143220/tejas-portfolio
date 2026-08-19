@@ -10,7 +10,7 @@ const mobileNavItems = [
   { id: 'resume', label: 'CV', icon: FaFilePdf, type: 'action' },
 ];
 
-export default function MobileBottomDock({ onOpenResume, onOpenSandbox }) {
+export default function MobileBottomDock({ onOpenResume }) {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -34,11 +34,12 @@ export default function MobileBottomDock({ onOpenResume, onOpenSandbox }) {
     e.preventDefault();
     if (item.type === 'action') {
       if (item.id === 'resume' && onOpenResume) onOpenResume();
-      if (item.id === 'sandbox' && onOpenSandbox) onOpenSandbox();
     } else {
       const elem = document.getElementById(item.id);
       if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth' });
+        const targetTop = elem.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+        setActiveSection(item.id);
       }
     }
   };

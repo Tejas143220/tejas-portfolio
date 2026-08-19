@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaFilePdf, FaTerminal, FaPalette, FaVolumeUp, FaVolumeMute, FaProjectDiagram, FaNetworkWired } from 'react-icons/fa';
+import {
+  FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaFilePdf,
+  FaPalette
+} from 'react-icons/fa';
 import { personalData } from '../data/portfolioData';
-import { soundFx } from '../utils/SoundEffects';
 import LogoT from './LogoT';
 
 const navLinks = [
@@ -22,13 +24,12 @@ const themes = [
   { id: 'emerald-mono', name: 'Monochrome Emerald', bg: 'bg-emerald-400', border: 'border-emerald-400' },
 ];
 
-export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, onOpenApiWorkbench }) {
+export default function Navbar({ onOpenResume }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [currentTheme, setCurrentTheme] = useState('pitchblack');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,12 +59,20 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
       document.documentElement.setAttribute('data-theme', themeId);
     }
     setThemeMenuOpen(false);
-    soundFx.playSynthPulse();
   };
 
-  const toggleSound = () => {
-    const enabled = soundFx.toggle();
-    setSoundEnabled(enabled);
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const targetId = href.replace('#', '');
+    const elem = document.getElementById(targetId);
+    if (elem) {
+      setTimeout(() => {
+        const top = elem.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+        setActiveSection(targetId);
+      }, 50);
+    }
   };
 
   return (
@@ -79,8 +88,8 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
           {/* Logo */}
           <a
             href="#home"
+            onClick={(e) => handleNavClick(e, '#home')}
             className="flex items-center gap-3 group focus:outline-none"
-            onClick={() => soundFx.playClick()}
           >
             <LogoT className="w-10 h-10" />
             <span className="text-xl font-bold font-heading text-slate-100 group-hover:text-cyan-400 transition-colors">
@@ -96,7 +105,7 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => soundFx.playClick()}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`relative px-3.5 py-1.5 text-xs lg:text-sm font-medium transition-colors rounded-full ${
                     isActive ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
                   }`}
@@ -114,25 +123,13 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
             })}
           </nav>
 
-          {/* Action Buttons: Sandbox, Theme Picker, CLI Terminal & Resume */}
-          <div className="hidden lg:flex items-center gap-2">
-            {/* Physics Sandbox Trigger */}
-            <button
-              onClick={() => {
-                soundFx.playSynthPulse();
-                onOpenSandbox && onOpenSandbox();
-              }}
-              className="p-2 text-slate-400 hover:text-cyan-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 rounded-xl transition-all"
-              title="Open Physics Tech Sandbox"
-            >
-              <FaProjectDiagram className="w-4 h-4" />
-            </button>
-
+          {/* Action Buttons: Theme Selector & CV Preview */}
+          <div className="hidden lg:flex items-center gap-3">
             {/* Theme Selector Palette */}
             <div className="relative">
               <button
                 onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-                className="p-2 text-slate-400 hover:text-cyan-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 rounded-xl transition-all"
+                className="p-2 text-slate-400 hover:text-cyan-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 rounded-xl transition-all cursor-pointer"
                 title="Change Theme Accent Color"
                 aria-label="Theme Switcher"
               >
@@ -154,7 +151,7 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
                       <button
                         key={t.id}
                         onClick={() => changeTheme(t.id)}
-                        className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+                        className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                           currentTheme === t.id
                             ? 'bg-slate-800 text-white'
                             : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
@@ -169,37 +166,21 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
               </AnimatePresence>
             </div>
 
-
-
-
-
             {/* Resume Preview Modal Trigger */}
             <button
-              onClick={() => {
-                soundFx.playClick();
-                onOpenResume();
-              }}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-xl shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              onClick={onOpenResume}
+              className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-xl shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <FaFilePdf className="w-3.5 h-3.5" />
               <span>Preview CV</span>
             </button>
           </div>
 
-
           {/* Mobile Action Controls */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={onOpenTerminal}
-              className="p-2 text-cyan-400 bg-slate-900 border border-slate-800 rounded-lg text-xs"
-              title="Open Terminal"
-            >
-              <FaTerminal className="w-4 h-4" />
-            </button>
-
-            <button
               onClick={onOpenResume}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-cyan-400 border border-cyan-500/30 rounded-lg bg-cyan-500/10"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-cyan-400 border border-cyan-500/30 rounded-lg bg-cyan-500/10 cursor-pointer"
             >
               <FaFilePdf className="w-3 h-3" />
               <span>CV</span>
@@ -207,7 +188,7 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-lg focus:outline-none"
+              className="p-2 text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-lg focus:outline-none cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
@@ -230,7 +211,7 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${
                     activeSection === link.href.substring(1)
                       ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
@@ -246,9 +227,9 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onOpenResume && onOpenResume();
+                    if (onOpenResume) onOpenResume();
                   }}
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
                   <FaFilePdf className="w-4 h-4" />
                   <span>Preview CV / Resume</span>
@@ -286,4 +267,3 @@ export default function Navbar({ onOpenResume, onOpenTerminal, onOpenSandbox, on
     </header>
   );
 }
-

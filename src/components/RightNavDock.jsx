@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronRight, FaChevronLeft, FaHome, FaUser, FaCode, FaBriefcase, FaGraduationCap, FaFolderOpen, FaEnvelope } from 'react-icons/fa';
-import { soundFx } from '../utils/SoundEffects';
+import {
+  FaChevronRight, FaChevronLeft, FaHome, FaUser, FaCode,
+  FaBriefcase, FaGraduationCap, FaFolderOpen, FaEnvelope
+} from 'react-icons/fa';
 
 const dockItems = [
   { id: 'home', label: 'Home', icon: FaHome },
@@ -42,11 +44,8 @@ export default function RightNavDock() {
       >
         {/* Toggle Collapse Button */}
         <button
-          onClick={() => {
-            setCollapsed(!collapsed);
-            soundFx.playClick();
-          }}
-          className="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 transition-colors border border-slate-800/80 mb-1"
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 transition-colors border border-slate-800/80 mb-1 cursor-pointer"
           title={collapsed ? "Expand Quick Nav" : "Collapse Quick Nav"}
           aria-label="Toggle Navigation Dock"
         >
@@ -54,7 +53,7 @@ export default function RightNavDock() {
         </button>
 
         {/* Section Indicators */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
           {dockItems.map((item) => {
             const isActive = activeSection === item.id;
             const IconComp = item.icon;
@@ -63,7 +62,6 @@ export default function RightNavDock() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                onClick={() => soundFx.playClick()}
                 className="relative flex items-center group focus:outline-none"
               >
                 {/* Hover Label Tooltip */}

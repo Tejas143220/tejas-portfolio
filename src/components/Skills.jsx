@@ -39,9 +39,9 @@ export default function Skills() {
     .filter(cat => cat.skills.length > 0);
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-20 sm:py-24 relative overflow-hidden">
       {/* Background Radial Light */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-indigo-600/10 rounded-full blur-[120px] sm:blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -54,24 +54,14 @@ export default function Skills() {
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Skills & <span className="text-gradient">Technologies</span>
           </h2>
-          <p className="text-slate-400 max-w-xl text-center mt-3 text-base sm:text-lg">
+          <p className="text-slate-400 max-w-xl text-center mt-3 text-sm sm:text-lg">
             A comprehensive overview of my technical capabilities across Python development, FastAPI, front-end frameworks, PostgreSQL databases, and ERP tools.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mt-4" />
         </div>
 
-        {/* Editorial Mobile Skills Marquee Block (Visible on Mobile) */}
-        <div className="block md:hidden bg-slate-950/80 p-6 rounded-3xl border border-slate-800 my-8 text-center space-y-4 font-mono">
-          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block text-left border-b border-slate-800/80 pb-2">
-            SKILLS ▸
-          </span>
-          <div className="text-xl xs:text-2xl font-black text-slate-200 uppercase leading-snug tracking-tight">
-            PYTHON <span className="text-sky-400">—</span> FASTAPI & REST APIs <span className="text-sky-400">—</span> ODOO 16 ERP <span className="text-sky-400">—</span> REACT.JS & NEXT.JS <span className="text-sky-400">—</span> POSTGRESQL <span className="text-sky-400">—</span> SYSTEM ARCHITECTURE
-          </div>
-        </div>
-
         {/* Live Search & Filter Bar */}
-        <div className="max-w-xl mx-auto mb-10">
+        <div className="max-w-xl mx-auto mb-8 sm:mb-10">
           <div className="relative">
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
             <input
@@ -93,10 +83,10 @@ export default function Skills() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 sm:mb-12">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all ${
+            className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               activeTab === 'all'
                 ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
                 : 'glass-card text-slate-300 hover:text-white border border-slate-800'
@@ -108,7 +98,7 @@ export default function Skills() {
             <button
               key={cat.id}
               onClick={() => setActiveTab(cat.id)}
-              className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all ${
+              className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeTab === cat.id
                   ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
                   : 'glass-card text-slate-300 hover:text-white border border-slate-800'
@@ -125,7 +115,7 @@ export default function Skills() {
             No matching skills found for "{searchQuery}".
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {filteredCategories.map((category, catIdx) => (
               <TiltCard key={category.id}>
                 <motion.div
@@ -227,5 +217,3 @@ export default function Skills() {
     </section>
   );
 }
-
-

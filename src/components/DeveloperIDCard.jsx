@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaQrcode, FaShieldAlt, FaClock, FaCheckCircle, FaExchangeAlt } from 'react-icons/fa';
 import { personalData } from '../data/portfolioData';
-import { soundFx } from '../utils/SoundEffects';
 
 export default function DeveloperIDCard() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -44,7 +43,6 @@ export default function DeveloperIDCard() {
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
-    soundFx.playBeep();
   };
 
   return (

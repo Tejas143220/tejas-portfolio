@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaLaptopCode, FaGithub, FaExternalLinkAlt, FaInfoCircle, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaLaptopCode, FaGithub, FaExternalLinkAlt, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { projectsData } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
 import TiltCard from './TiltCard';
@@ -76,7 +76,7 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => setSelectedFilter(cat)}
-              className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all ${
+              className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
                 selectedFilter === cat
                   ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
                   : 'glass-card text-slate-300 hover:text-white border border-slate-800'
@@ -163,7 +163,7 @@ export default function Projects() {
                       <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
                         <button
                           onClick={() => setActiveModalProject(project)}
-                          className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 group/btn"
+                          className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 group/btn cursor-pointer"
                         >
                           <span>Explore Details</span>
                           <FaArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
@@ -215,4 +215,3 @@ export default function Projects() {
     </section>
   );
 }
-

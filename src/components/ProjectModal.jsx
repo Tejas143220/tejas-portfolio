@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaGithub, FaExternalLinkAlt, FaCheckCircle, FaLayerGroup } from 'react-icons/fa';
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaLayerGroup } from 'react-icons/fa';
 import SystemArchitectureBlueprint from './SystemArchitectureBlueprint';
 
 export default function ProjectModal({ project, onClose }) {
@@ -28,7 +28,7 @@ export default function ProjectModal({ project, onClose }) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-slate-950/60 hover:bg-slate-800 rounded-full border border-slate-700 transition-colors"
+            className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-slate-950/60 hover:bg-slate-800 rounded-full border border-slate-700 transition-colors cursor-pointer"
             aria-label="Close Project Modal"
           >
             <FaTimes className="w-5 h-5" />
@@ -112,4 +112,3 @@ export default function ProjectModal({ project, onClose }) {
     </AnimatePresence>
   );
 }
-

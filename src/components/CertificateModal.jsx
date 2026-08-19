@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaCertificate, FaAward, FaCalendarAlt, FaCheckCircle } from 'react-icons/fa';
+import { FaTimes, FaAward, FaCalendarAlt, FaCheckCircle } from 'react-icons/fa';
 
 export default function CertificateModal({ cert, onClose }) {
   if (!cert) return null;
@@ -27,7 +27,7 @@ export default function CertificateModal({ cert, onClose }) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-950/60 rounded-full border border-slate-800 transition-colors"
+            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-950/60 rounded-full border border-slate-800 transition-colors cursor-pointer"
           >
             <FaTimes className="w-4 h-4" />
           </button>
@@ -77,7 +77,7 @@ export default function CertificateModal({ cert, onClose }) {
           <div className="pt-4 border-t border-slate-800 flex justify-end">
             <button
               onClick={onClose}
-              className="px-6 py-2.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-xs transition-all"
+              className="px-6 py-2.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-xs transition-all cursor-pointer"
             >
               Done Viewing
             </button>

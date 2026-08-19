@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaLaptopCode, FaServer, FaDatabase, FaNetworkWired, FaCheckCircle, FaPlay, FaTachometerAlt, FaChartLine } from 'react-icons/fa';
-import { soundFx } from '../utils/SoundEffects';
+import { FaLaptopCode, FaServer, FaDatabase, FaNetworkWired, FaCheckCircle, FaPlay } from 'react-icons/fa';
 
 const architectureSteps = [
   {
@@ -44,7 +43,6 @@ export default function SystemArchitectureBlueprint() {
   const [metrics, setMetrics] = useState({ rps: 0, latency: 4.2, success: 100 });
 
   const runLoadSimulation = () => {
-    soundFx.playSynthPulse();
     setIsSimulating(true);
     let count = 0;
     const interval = setInterval(() => {
@@ -80,7 +78,7 @@ export default function SystemArchitectureBlueprint() {
         <button
           onClick={runLoadSimulation}
           disabled={isSimulating}
-          className="px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5 disabled:opacity-50"
+          className="px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
         >
           <FaPlay className="w-2.5 h-2.5" />
           <span>{isSimulating ? 'Testing Load...' : 'Simulate 10,000 API Requests'}</span>
@@ -116,10 +114,7 @@ export default function SystemArchitectureBlueprint() {
               {/* Step Node Card */}
               <motion.div
                 whileHover={{ scale: 1.04 }}
-                onClick={() => {
-                  setActiveStep(step);
-                  soundFx.playClick();
-                }}
+                onClick={() => setActiveStep(step)}
                 className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
                   isSelected
                     ? 'bg-slate-900 border-cyan-400 shadow-lg shadow-cyan-500/20'
@@ -182,4 +177,3 @@ export default function SystemArchitectureBlueprint() {
     </div>
   );
 }
-
