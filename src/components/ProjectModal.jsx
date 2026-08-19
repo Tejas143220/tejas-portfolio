@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaGithub, FaExternalLinkAlt, FaLayerGroup } from 'react-icons/fa';
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaLayerGroup, FaArrowLeft } from 'react-icons/fa';
 import SystemArchitectureBlueprint from './SystemArchitectureBlueprint';
 
 export default function ProjectModal({ project, onClose }) {
+  useEffect(() => {
+    if (!project) return;
+
+    window.history.pushState({ modal: 'project' }, '');
+
+    const handlePopState = () => {
+      onClose();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [project, onClose]);
+
   if (!project) return null;
+
+  const handleClose = () => {
+    if (window.history.state && window.history.state.modal === 'project') {
+      window.history.back();
+    } else {
+      onClose();
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -14,7 +38,7 @@ export default function ProjectModal({ project, onClose }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onClose}
+          onClick={handleClose}
           className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
         />
 
@@ -27,7 +51,7 @@ export default function ProjectModal({ project, onClose }) {
         >
           {/* Close Button */}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-slate-950/60 hover:bg-slate-800 rounded-full border border-slate-700 transition-colors cursor-pointer"
             aria-label="Close Project Modal"
           >
@@ -82,6 +106,14 @@ export default function ProjectModal({ project, onClose }) {
 
             {/* Modal Action Footer Links */}
             <div className="pt-6 border-t border-slate-800 flex flex-wrap items-center gap-4">
+              <button
+                onClick={handleClose}
+                className="px-4 py-3 rounded-xl font-semibold text-slate-300 bg-slate-900 border border-slate-800 flex items-center gap-2 text-sm cursor-pointer"
+              >
+                <FaArrowLeft className="w-4 h-4 text-sky-400" />
+                <span>Back to Website</span>
+              </button>
+
               {project.liveUrl && project.liveUrl !== '#' && (
                 <a
                   href={project.liveUrl}

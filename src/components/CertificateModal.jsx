@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaAward, FaCalendarAlt, FaCheckCircle } from 'react-icons/fa';
+import { FaTimes, FaAward, FaCalendarAlt, FaCheckCircle, FaArrowLeft } from 'react-icons/fa';
 
 export default function CertificateModal({ cert, onClose }) {
+  useEffect(() => {
+    if (!cert) return;
+
+    window.history.pushState({ modal: 'cert' }, '');
+
+    const handlePopState = () => {
+      onClose();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [cert, onClose]);
+
   if (!cert) return null;
+
+  const handleClose = () => {
+    if (window.history.state && window.history.state.modal === 'cert') {
+      window.history.back();
+    } else {
+      onClose();
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -13,7 +37,7 @@ export default function CertificateModal({ cert, onClose }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onClose}
+          onClick={handleClose}
           className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
         />
 
@@ -26,7 +50,7 @@ export default function CertificateModal({ cert, onClose }) {
         >
           {/* Close Button */}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-950/60 rounded-full border border-slate-800 transition-colors cursor-pointer"
           >
             <FaTimes className="w-4 h-4" />
@@ -74,9 +98,16 @@ export default function CertificateModal({ cert, onClose }) {
             </div>
           )}
 
-          <div className="pt-4 border-t border-slate-800 flex justify-end">
+          <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
             <button
-              onClick={onClose}
+              onClick={handleClose}
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 bg-slate-900 border border-slate-800 flex items-center gap-1.5 cursor-pointer"
+            >
+              <FaArrowLeft className="w-3 h-3 text-sky-400" /> Back to Website
+            </button>
+
+            <button
+              onClick={handleClose}
               className="px-6 py-2.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-xs transition-all cursor-pointer"
             >
               Done Viewing
