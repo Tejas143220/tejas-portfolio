@@ -11,6 +11,7 @@ export const personalData = {
   linkedin: "https://www.linkedin.com/in/tejas-thakare-440799251/",
   twitter: "https://twitter.com/tejashakare",
   resumeUrl: "/TEJAS_THAKARE_R.pdf",
+  web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY", // Get free key at https://web3forms.com to receive form submissions in tthakare67@gmail.com
   
   aboutNarrative: [
     "I am a motivated Computer Science postgraduate with hands-on experience in Python development, ERP systems, full-stack web development, and database management.",
@@ -69,21 +70,15 @@ export const statsData = [
 export const terminalCommands = {
   help: `Available Shell Commands:
   whoami      - Developer profile & role
-  api         - Launch Interactive FastAPI REST API Studio
   skills      - Technical skills breakdown
   projects    - List active projects
   open <#|id> - Open project or link (e.g. "open 1", "open github")
   ls          - List virtual workspace files
   cat <file>  - Read virtual file (e.g. "cat about.txt", "cat skills.json")
   sysinfo     - View system architecture
-  ping <host> - Ping external server with latency metrics
-  matrix      - Trigger digital rain animation
-  quote       - Display programming wisdom
   date        - Current timestamp
   contact     - Contact information
-  resume      - Launch CV Viewer
-  clear       - Clear terminal screen`,
-  api: "Opening Interactive FastAPI REST API Studio Workbench...",
+  resume      - Launch CV Viewer`,
   whoami: "Tejas Thakare | M.Sc. Computer Science Postgraduate\nRole: Python & Full Stack Developer\nFocus: FastAPI, React.js, Next.js, PostgreSQL, Odoo 16 ERP\nStatus: 🟢 Open to Python & Web Developer roles",
   skills: `Core Languages : Python, JavaScript, SQL, C, PHP
 Backend & APIs : FastAPI, Node.js, RESTful Microservices
@@ -96,7 +91,6 @@ Database & ERP : PostgreSQL, MySQL, Odoo 16 ERP, Git & GitHub`,
   contact: "Email: tthakare67@gmail.com\nPhone: +91 7058638277\nLocation: Nashik, Maharashtra, India\nGitHub: github.com/Tejas143220\nLinkedIn: linkedin.com/in/tejas-thakare-440799251/",
   resume: "Opening PDF Resume Viewer... (Downloaded: TEJAS_THAKARE_R.pdf)"
 };
-
 
 export const skillsCategories = [
   {

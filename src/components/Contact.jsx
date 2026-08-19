@@ -26,7 +26,7 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Users can paste their free key here, or fallback
+          access_key: personalData.web3formsAccessKey || 'YOUR_WEB3FORMS_ACCESS_KEY',
           name: formData.name,
           email: formData.email,
           subject: formData.subject || `New Portfolio Message from ${formData.name}`,
